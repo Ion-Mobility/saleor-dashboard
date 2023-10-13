@@ -30,7 +30,9 @@ export const updateChannelsInput = (
       return {
         ...listing,
         ...data,
-        availableForPurchaseDate: data.availableForPurchase,
+        availableForPurchaseDate: data.isAvailableForPurchase
+          ? data.availableForPurchase
+          : null,
       };
     }
     return listing;

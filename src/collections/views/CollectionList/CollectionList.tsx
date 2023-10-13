@@ -59,13 +59,21 @@ export const CollectionList: React.FC<CollectionListProps> = ({ params }) => {
   usePaginationReset(collectionListUrl, params, settings.rowNumber);
   const { channel } = useAppChannel(false);
 
+  const {
+    clearRowSelection,
+    selectedRowIds,
+    setClearDatagridRowSelectionCallback,
+    setSelectedRowIds,
+  } = useRowSelection(params);
+
   const [changeFilters, resetFilters, handleSearchChange] =
     createFilterHandlers({
-      cleanupFn: reset,
+      cleanupFn: clearRowSelection,
       createUrl: collectionListUrl,
       getFilterQueryParam,
       navigate,
       params,
+      keepActiveTab: true,
     });
 
   const { availableChannels } = useAppChannel(false);
@@ -108,6 +116,8 @@ export const CollectionList: React.FC<CollectionListProps> = ({ params }) => {
     variables: queryVariables,
   });
 
+  const collections = mapEdgesToItems(data?.collections);
+
   const [collectionBulkDelete, collectionBulkDeleteOpts] =
     useCollectionBulkDeleteMutation({
       onCompleted: data => {
@@ -117,7 +127,7 @@ export const CollectionList: React.FC<CollectionListProps> = ({ params }) => {
             text: intl.formatMessage(commonMessages.savedChanges),
           });
           refetch();
-          reset();
+          clearRowSelection();
           closeModal();
         }
       },

@@ -1,4 +1,3 @@
-// @ts-strict-ignore
 import packageInfo from "../package.json";
 import { SearchVariables } from "./hooks/makeSearch";
 import { ListSettings, ListViews, Pagination } from "./types";

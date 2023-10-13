@@ -1,12 +1,7 @@
 // @ts-strict-ignore
-import {
-  categoryAddUrl,
-  categoryListUrl,
-  categoryUrl,
-} from "@dashboard/categories/urls";
+import { categoryListUrl, categoryUrl } from "@dashboard/categories/urls";
 import { TopNav } from "@dashboard/components/AppLayout/TopNav";
 import { CardSpacer } from "@dashboard/components/CardSpacer";
-import CardTitle from "@dashboard/components/CardTitle";
 import { ConfirmButtonTransitionState } from "@dashboard/components/ConfirmButton";
 import { DetailPageLayout } from "@dashboard/components/Layouts";
 import { Metadata } from "@dashboard/components/Metadata/Metadata";
@@ -16,7 +11,6 @@ import { Tab, TabContainer } from "@dashboard/components/Tab";
 import { CategoryDetailsQuery, ProductErrorFragment } from "@dashboard/graphql";
 import { SubmitPromise } from "@dashboard/hooks/useForm";
 import useNavigator from "@dashboard/hooks/useNavigator";
-import { Card } from "@material-ui/core";
 import { sprinkles } from "@saleor/macaw-ui/next";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";

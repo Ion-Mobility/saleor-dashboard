@@ -1,4 +1,3 @@
-// @ts-strict-ignore
 import ActionDialog from "@dashboard/components/ActionDialog";
 import DeleteFilterTabDialog from "@dashboard/components/DeleteFilterTabDialog";
 import SaveFilterTabDialog from "@dashboard/components/SaveFilterTabDialog";
@@ -99,17 +98,14 @@ export const CustomerList: React.FC<CustomerListProps> = ({ params }) => {
   });
   const customers = mapEdgesToItems(data?.customers);
 
-  const tabs = getFilterTabs();
-
-  const currentTab = getFiltersCurrentTab(params, tabs);
-
   const [changeFilters, resetFilters, handleSearchChange] =
     createFilterHandlers({
-      cleanupFn: reset,
+      cleanupFn: clearRowSelection,
       createUrl: customerListUrl,
       getFilterQueryParam,
       navigate,
       params,
+      keepActiveTab: true,
     });
 
   const [openModal, closeModal] = createDialogActionHandlers<
@@ -126,13 +122,13 @@ export const CustomerList: React.FC<CustomerListProps> = ({ params }) => {
   const [bulkRemoveCustomers, bulkRemoveCustomersOpts] =
     useBulkRemoveCustomersMutation({
       onCompleted: data => {
-        if (data.customerBulkDelete.errors.length === 0) {
+        if (data.customerBulkDelete?.errors.length === 0) {
           notify({
             status: "success",
             text: intl.formatMessage(commonMessages.savedChanges),
           });
-          reset();
           refetch();
+          clearRowSelection();
           closeModal();
         }
       },

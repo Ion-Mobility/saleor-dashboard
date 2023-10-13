@@ -1,19 +1,25 @@
 // @ts-strict-ignore
-import ColumnPicker from "@dashboard/components/ColumnPicker";
+import { ColumnPicker } from "@dashboard/components/Datagrid/ColumnPicker/ColumnPicker";
+import { useColumns } from "@dashboard/components/Datagrid/ColumnPicker/useColumns";
 import Datagrid from "@dashboard/components/Datagrid/Datagrid";
 import {
   DatagridChangeStateContext,
   useDatagridChangeState,
 } from "@dashboard/components/Datagrid/hooks/useDatagridChange";
 import { OrderLineFragment } from "@dashboard/graphql";
+import useListSettings from "@dashboard/hooks/useListSettings";
 import { productPath } from "@dashboard/products/urls";
+import { ListViews } from "@dashboard/types";
 import { ExternalLinkIcon } from "@saleor/macaw-ui/next";
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
 import { messages as orderMessages } from "../OrderListDatagrid/messages";
-import { useColumns, useGetCellContent } from "./datagrid";
+import {
+  createGetCellContent,
+  orderDetailsStaticColumnsAdapter,
+} from "./datagrid";
 import { messages } from "./messages";
 
 interface OrderDetailsDatagridProps {
@@ -58,6 +64,15 @@ export const OrderDetailsDatagrid = ({
     onSave: handleColumnChange,
   });
 
+  const getCellContent = useCallback(
+    createGetCellContent({
+      columns: visibleColumns,
+      data: lines,
+      loading,
+    }),
+    [intl, visibleColumns, loading],
+  );
+
   const getMenuItems = useCallback(
     index => [
       {
@@ -86,7 +101,7 @@ export const OrderDetailsDatagrid = ({
         rowMarkers="none"
         columnSelect="single"
         freezeColumns={1}
-        availableColumns={columns}
+        availableColumns={visibleColumns}
         emptyText={intl.formatMessage(orderMessages.emptyText)}
         getCellContent={getCellContent}
         getCellError={() => false}

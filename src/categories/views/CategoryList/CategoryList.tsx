@@ -124,10 +124,11 @@ export const CategoryList: React.FC<CategoryListProps> = ({ params }) => {
     }
   };
 
-  const [categoryBulkDelete, categoryBulkDeleteOpts] =
-    useCategoryBulkDeleteMutation({
-      onCompleted: handleCategoryBulkDelete,
-    });
+  const handleSetSelectedCategoryIds = useCallback(
+    (rows: number[], clearSelection: () => void) => {
+      if (!categories) {
+        return;
+      }
 
       const rowsIds = rows.map(row => categories[row].id);
       const haveSaveValues = isEqual(rowsIds, selectedRowIds);

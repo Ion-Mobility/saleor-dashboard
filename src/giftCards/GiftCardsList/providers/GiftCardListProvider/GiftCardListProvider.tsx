@@ -1,4 +1,3 @@
-// @ts-strict-ignore
 import { ApolloError } from "@apollo/client";
 import { IFilter } from "@dashboard/components/Filter";
 import { ExtendedGiftCard } from "@dashboard/giftCards/GiftCardUpdate/providers/GiftCardDetailsProvider/types";
@@ -84,7 +83,7 @@ export interface GiftCardsListConsumerProps
 }
 
 export const GiftCardsListContext =
-  createContext<GiftCardsListConsumerProps>(null);
+  createContext<GiftCardsListConsumerProps | null>(null);
 
 export const useGiftCardList = () => {
   const context = useContext(GiftCardsListContext);
@@ -107,6 +106,23 @@ export const GiftCardsListProvider: React.FC<GiftCardsListProviderProps> = ({
 
   const [isFilterPresetOpen, setFilterPresetOpen] = useState(false);
   const { clearRowSelection, ...rowSelectionUtils } = useRowSelection(params);
+
+  const filterUtils = useFilterPresets({
+    reset: clearRowSelection,
+    params,
+    getUrl: giftCardListUrl,
+    storageUtils,
+  });
+
+  const [changeFilters, resetFilters, handleSearchChange] =
+    createFilterHandlers({
+      createUrl: giftCardListUrl,
+      getFilterQueryParam,
+      navigate,
+      params,
+      cleanupFn: clearRowSelection,
+      keepActiveTab: true,
+    });
 
   const { updateListSettings, settings } =
     useListSettings<GiftCardListColummns>(ListViews.GIFT_CARD_LIST);

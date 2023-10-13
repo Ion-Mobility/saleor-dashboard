@@ -1,4 +1,3 @@
-// @ts-strict-ignore
 import { FilterElement } from "@dashboard/components/Filter";
 import {
   CustomerFilterKeys,
@@ -89,8 +88,7 @@ export function getFilterQueryParam(
   }
 }
 
-export const { deleteFilterTab, getFilterTabs, saveFilterTab } =
-  createFilterTabUtils<CustomerListUrlFilters>(CUSTOMER_FILTERS_KEY);
+export const storageUtils = createFilterTabUtils<string>(CUSTOMER_FILTERS_KEY);
 
 export const { areFiltersApplied, getActiveFilters, getFiltersCurrentTab } =
   createFilterUtils<CustomerListUrlQueryParams, CustomerListUrlFilters>(

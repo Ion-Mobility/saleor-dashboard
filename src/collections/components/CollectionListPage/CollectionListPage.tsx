@@ -1,11 +1,5 @@
 // @ts-strict-ignore
-import { collectionAddUrl } from "@dashboard/collections/urls";
-import { TopNav } from "@dashboard/components/AppLayout/TopNav";
-import { Button } from "@dashboard/components/Button";
-import { getByName } from "@dashboard/components/Filter/utils";
-import FilterBar from "@dashboard/components/FilterBar";
-import { ListPageLayout } from "@dashboard/components/Layouts";
-import { sectionNames } from "@dashboard/intl";
+import { Collections } from "@dashboard/collections/types";
 import {
   collectionAddUrl,
   CollectionListUrlSortField,

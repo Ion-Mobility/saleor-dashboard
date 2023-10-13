@@ -28,23 +28,10 @@ export const ListFilters = <TFilterKeys extends string = string>({
   onFilterAttributeFocus,
   errorMessages,
   actions,
-}: ListFiltersProps) => (
-  <>
-    <Box
-      display="grid"
-      gridTemplateColumns={2}
-      gap={4}
-      paddingBottom={2}
-      paddingX={6}
-    >
-      <Box display="flex" alignItems="center" gap={4}>
-        <FiltersSelect
-          errorMessages={errorMessages}
-          menu={filterStructure}
-          currencySymbol={currencySymbol}
-          onFilterAdd={onFilterChange}
-          onFilterAttributeFocus={onFilterAttributeFocus}
-        />
+}: ListFiltersProps<TFilterKeys>) => {
+  const isProductPage = window.location.pathname.includes("/products");
+  const productListingPageFiltersFlag = useFlag("product_filters");
+  const filtersEnabled = isProductPage && productListingPageFiltersFlag.enabled;
 
   return (
     <>

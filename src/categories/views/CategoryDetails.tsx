@@ -174,6 +174,7 @@ export const CategoryDetails: React.FC<CategoryDetailsProps> = ({
   const [productBulkDelete, productBulkDeleteOpts] =
     useProductBulkDeleteMutation({
       onCompleted: data => {
+        clearProductRowSelection();
         if (data.productBulkDelete.errors.length === 0) {
           closeModal();
           notify({
@@ -181,7 +182,6 @@ export const CategoryDetails: React.FC<CategoryDetailsProps> = ({
             text: intl.formatMessage(commonMessages.savedChanges),
           });
           refetch();
-          reset();
         }
       },
     });

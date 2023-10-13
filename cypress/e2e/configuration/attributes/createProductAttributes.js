@@ -16,7 +16,9 @@ import {
   createAttribute,
   getAttribute,
 } from "../../../support/api/requests/Attribute";
-import { expectCorrectDataInAttribute } from "../../../support/api/utils/attributes/checkAttributeData";
+import {
+  expectCorrectDataInAttribute,
+} from "../../../support/api/utils/attributes/checkAttributeData";
 import {
   createAttributeWithInputType,
   fillUpAttributeNameAndCode,

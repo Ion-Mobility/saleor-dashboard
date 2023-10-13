@@ -1,11 +1,8 @@
 // @ts-strict-ignore
 import { useAppDashboardUpdates } from "@dashboard/apps/components/AppFrame/useAppDashboardUpdates";
 import { useUpdateAppToken } from "@dashboard/apps/components/AppFrame/useUpdateAppToken";
-import {
-  AppDetailsUrlQueryParams,
-  prepareFeatureFlagsList,
-} from "@dashboard/apps/urls";
-import { useAllFlags } from "@dashboard/hooks/useFlags";
+import { AppDetailsUrlQueryParams } from "@dashboard/apps/urls";
+import { useAllFlags } from "@dashboard/featureFlags";
 import { CircularProgress } from "@material-ui/core";
 import { DashboardEventFactory } from "@saleor/app-sdk/app-bridge";
 import clsx from "clsx";
@@ -25,7 +22,7 @@ interface Props {
   refetch?: () => void;
   dashboardVersion: string;
   coreVersion?: string;
-  onError?(): void;
+  onError?: () => void;
 }
 
 const getOrigin = (url: string) => new URL(url).origin;
@@ -83,15 +80,6 @@ export const AppFrame: React.FC<Props> = ({
 
     setHandshakeDone(true);
   }, [appToken, postToExtension, setHandshakeDone]);
-
-  useUpdateAppToken({
-    postToExtension,
-    appToken,
-    /**
-     * If app is not ready, ignore this flow
-     */
-    enabled: handshakeDone,
-  });
 
   useUpdateAppToken({
     postToExtension,

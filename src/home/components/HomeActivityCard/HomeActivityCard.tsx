@@ -1,5 +1,4 @@
-// @ts-strict-ignore
-import CardTitle from "@dashboard/components/CardTitle";
+import { DashboardCard } from "@dashboard/components/Card";
 import { DateTime } from "@dashboard/components/Date";
 import Skeleton from "@dashboard/components/Skeleton";
 import { Activities } from "@dashboard/home/types";

@@ -14,7 +14,9 @@ import {
   updateChannelInProduct,
 } from "../../support/api/requests/Product";
 import * as productUtils from "../../support/api/utils/products/productsUtils";
-import { getProductVariants } from "../../support/api/utils/storeFront/storeFrontProductUtils";
+import {
+  getProductVariants,
+} from "../../support/api/utils/storeFront/storeFrontProductUtils";
 import {
   addVariantToDataGrid,
   enterVariantEditPage,

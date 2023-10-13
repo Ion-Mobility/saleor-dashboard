@@ -1,4 +1,3 @@
-// @ts-strict-ignore
 import { saleList } from "@dashboard/discounts/fixtures";
 import { SaleListUrlSortField } from "@dashboard/discounts/urls";
 import {

@@ -318,13 +318,10 @@ export const ProductStocks: React.FC<ProductStocksProps> = ({
                   <Dropdown.Content align="end">
                     <Box>
                       <List
-                        id="warehouse-list"
                         padding={2}
                         borderRadius={4}
                         boxShadow="overlay"
                         backgroundColor="surfaceNeutralPlain"
-                        __maxHeight={400}
-                        overflowY="auto"
                       >
                         {warehousesToAssign.map(warehouse => (
                           <Dropdown.Item key={warehouse.id}>

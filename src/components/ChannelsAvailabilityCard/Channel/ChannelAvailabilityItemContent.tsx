@@ -59,6 +59,9 @@ export const ChannelAvailabilityItemContent: React.FC<ChannelContentProps> = ({
   const [isAvailableDate, setAvailableDate] = useState(false);
   const intl = useIntl();
 
+  const parsedDate = new Date(dateNow);
+  const todayDateUTC = parsedDate.toISOString().slice(0, 10);
+
   const visibleMessage = (date: string) =>
     intl.formatMessage(availabilityItemMessages.sinceDate, {
       date: localizeDate(date),
@@ -76,7 +79,8 @@ export const ChannelAvailabilityItemContent: React.FC<ChannelContentProps> = ({
           onChange(id, {
             ...formData,
             isPublished: value === "true",
-            publicationDate: value === "false" ? null : publicationDate,
+            publicationDate:
+              !isPublished && !publicationDate ? todayDateUTC : publicationDate,
           });
         }}
         disabled={disabled}
@@ -163,8 +167,7 @@ export const ChannelAvailabilityItemContent: React.FC<ChannelContentProps> = ({
             onValueChange={value =>
               onChange(id, {
                 ...formData,
-                availableForPurchase:
-                  value === "false" ? null : availableForPurchase,
+                availableForPurchase: !value ? null : availableForPurchase,
                 isAvailableForPurchase: value === "true",
               })
             }

@@ -47,7 +47,7 @@ describe("ProductUpdatePage - fromChannels", () => {
       });
     });
 
-    it("should update availableForPurchaseDate if isAvailableForPurchase is set to false", () => {
+    it("should set availableForPurchaseDate to null if isAvailableForPurchase is set to false", () => {
       const oldData = {
         removeChannels: [],
         updateChannels: [channel],
@@ -67,7 +67,7 @@ describe("ProductUpdatePage - fromChannels", () => {
         updateChannels: [
           {
             ...channel,
-            availableForPurchaseDate: "2020-10-01",
+            availableForPurchaseDate: null,
             availableForPurchase: "2020-10-01",
           },
         ],

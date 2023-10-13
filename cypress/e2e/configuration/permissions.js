@@ -21,7 +21,9 @@ import {
   createPermissionGroup,
   getPermissionGroup,
 } from "../../support/api/requests/PermissionGroup.js";
-import { getStaffMembersStartsWith } from "../../support/api/requests/StaffMembers";
+import {
+  getStaffMembersStartsWith,
+} from "../../support/api/requests/StaffMembers";
 
 describe("Permissions groups", () => {
   const startsWith = "CyPermissions-" + Date.now();

@@ -28,8 +28,8 @@ import {
   useVariantMediaAssignMutation,
   useVariantMediaUnassignMutation,
   useVariantUpdateMutation,
+  useWarehouseListQuery,
 } from "@dashboard/graphql";
-import { useFetchAllWarehouses } from "@dashboard/hooks/useFetchAllWarehouse";
 import useNavigator from "@dashboard/hooks/useNavigator";
 import useNotifier from "@dashboard/hooks/useNotifier";
 import useOnSetDefaultVariant from "@dashboard/hooks/useOnSetDefaultVariant";
@@ -141,10 +141,10 @@ export const ProductVariant: React.FC<ProductUpdateProps> = ({
   const variant = data?.productVariant;
   const channels = createVariantChannels(variant);
 
-  const warehouses = useFetchAllWarehouses({
+  const warehouses = useWarehouseListQuery({
     displayLoader: true,
     variables: {
-      first: 100,
+      first: 50,
       filter: {
         channels: channels.map(channel => channel.id),
       },

@@ -86,50 +86,48 @@ const TranslationsAttributesPage: React.FC<TranslationsAttributesPageProps> = ({
           }
         />
       </TopNav>
-      <DetailPageLayout.Content>
+      <TranslationFields
+        activeField={activeField}
+        disabled={disabled}
+        initialState={true}
+        title={intl.formatMessage(commonMessages.generalInformations)}
+        fields={[
+          {
+            displayName: intl.formatMessage({
+              id: "DRMMDs",
+              defaultMessage: "Attribute Name",
+            }),
+            name: fieldNames.attribute + ":" + data?.attribute.id,
+            translation: data?.translation?.name || null,
+            type: "short" as "short",
+            value: data?.attribute?.name,
+          },
+        ]}
+        saveButtonState={saveButtonState}
+        richTextResetKey={languageCode}
+        onEdit={onEdit}
+        onDiscard={onDiscard}
+        onSubmit={onSubmit}
+      />
+      <CardSpacer />
+      {data?.attribute?.choices.edges.length > 0 && withChoices && (
         <TranslationFields
           activeField={activeField}
           disabled={disabled}
           initialState={true}
-          title={intl.formatMessage(commonMessages.generalInformations)}
-          fields={[
-            {
-              displayName: intl.formatMessage({
-                id: "DRMMDs",
-                defaultMessage: "Attribute Name",
-              }),
-              name: fieldNames.attribute + ":" + data?.attribute.id,
-              translation: data?.translation?.name || null,
-              type: "short" as "short",
-              value: data?.attribute?.name,
-            },
-          ]}
+          title={intl.formatMessage(messages.values)}
+          fields={getTranslationFields(data?.attribute?.choices, intl)}
           saveButtonState={saveButtonState}
           richTextResetKey={languageCode}
+          pagination={{
+            settings,
+            onUpdateListSettings,
+          }}
           onEdit={onEdit}
           onDiscard={onDiscard}
           onSubmit={onSubmit}
         />
-        <CardSpacer />
-        {data?.attribute?.choices.edges.length > 0 && withChoices && (
-          <TranslationFields
-            activeField={activeField}
-            disabled={disabled}
-            initialState={true}
-            title={intl.formatMessage(messages.values)}
-            fields={getTranslationFields(data?.attribute?.choices, intl)}
-            saveButtonState={saveButtonState}
-            richTextResetKey={languageCode}
-            pagination={{
-              settings,
-              onUpdateListSettings,
-            }}
-            onEdit={onEdit}
-            onDiscard={onDiscard}
-            onSubmit={onSubmit}
-          />
-        )}
-      </DetailPageLayout.Content>
+      )}
     </DetailPageLayout>
   );
 };
